@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_231330) do
+ActiveRecord::Schema.define(version: 2021_04_08_232851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 2021_04_08_231330) do
     t.string "title", null: false
     t.text "description", null: false
     t.integer "id_user", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tag_contents", force: :cascade do |t|
+    t.integer "id_tag", null: false
+    t.integer "id_content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -45,5 +52,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_231330) do
   end
 
   add_foreign_key "contents", "users", column: "id_user"
+  add_foreign_key "tag_contents", "contents", column: "id_content"
+  add_foreign_key "tag_contents", "tags", column: "id_tag"
   add_foreign_key "tags", "users", column: "id_user"
 end
