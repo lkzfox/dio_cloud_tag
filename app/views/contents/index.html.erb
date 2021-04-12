@@ -9,4 +9,8 @@
     <div>
         Description: <%= c.description %>
     </div>
+    <div>
+        <%= link_to 'Edit', edit_content_path(c) %>
+        <%= link_to 'Show', content_path(c) %>
+    </div>
 <% end %>
