@@ -14,6 +14,7 @@ class ContentsController < ApplicationController
     @content.user = current_user
 
     if @content.save
+      associate_tags
       redirect_to contents_path, notice: 'Success!'
     else
       render :new
@@ -26,6 +27,7 @@ class ContentsController < ApplicationController
 
   def update
     @content = Content.find(params[:id])
+    associate_tags
 
     if @content.update(content_params)
       redirect_to contents_path, notice: 'Success!'
@@ -42,5 +44,17 @@ class ContentsController < ApplicationController
 
   def content_params
     params.require(:content).permit(:title, :description)
+  end
+
+  def content_tags
+    params.require(:content).permit(tags: [])[:tags].filter {|i| !i.blank? }
+  end
+
+  def associate_tags
+    tags = content_tags.map do |t|
+      current_user.tags.where(name: t).first_or_initialize
+    end
+
+    @content.tags = tags
   end
 end

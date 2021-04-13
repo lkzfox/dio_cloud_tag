@@ -9,5 +9,8 @@
     <%= f.label :description %>
     <%= f.text_area :description %>
 
+    <%= f.label :tags %>
+    <%= f.select :tags, options_for_select(current_user.tags.pluck(:name), content.tags.pluck(:name)), {}, { class: 'tagging', multiple: 'multiple', style: 'width: 50%' }%>
+
     <%= f.submit %>
 <% end %>
