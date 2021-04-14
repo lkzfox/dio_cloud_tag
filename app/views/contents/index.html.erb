@@ -1,15 +1,25 @@
 <h1> Conteudos </h1>
 
+
+<%= form_tag(contents_path, method: :get) do %>
+    <%= label_tag :tags %>
+    <%= select_tag "tags[]", options_for_select(current_user.tags.pluck(:name), params[:tags]), class: 'tagging', multiple: 'multiple', style: 'width: 50%'%>
+
+    <%= submit_tag("Search") %>
+<% end %>
+
+<br>
+
 <%= link_to 'New', new_content_path %>
 
+<br>
+
 <% @contents.each do |c| %>
-    <div>
-        Title: <%= c.title %>
+    <div class="inline w40">
+        <p> Title: <%= c.title %> </p>
+        <p> Tags: <%= c.tags.pluck(:name).join(' | ') %> </p>
     </div>
-    <div>
-        Description: <%= c.description %>
-    </div>
-    <div>
+    <div class="inline w40">
         <%= link_to 'Edit', edit_content_path(c) %>
         <%= link_to 'Show', content_path(c) %>
     </div>
