@@ -2,5 +2,5 @@
   <%= @content.title %>
 </h1>
 <div>
-  <%= @content.description %>
+  <%= raw @markdown.render(@content.description) %>
 </div>

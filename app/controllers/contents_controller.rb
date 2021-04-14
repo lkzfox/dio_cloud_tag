@@ -43,6 +43,7 @@ class ContentsController < ApplicationController
 
   def show
     @content = Content.find(params.require(:id))
+    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
   end
 
   private 
